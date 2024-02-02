@@ -1,0 +1,17 @@
+{
+  "conversation": [
+    {"role": "bot", "content": "Hallo! Ich bin Ihr Voice-Bot. Wie kann ich Ihnen helfen?"},
+    {"role": "user", "content": "Ich möchte Informationen über Ihr Produkt erhalten."},
+    {"role": "bot", "content": "Natürlich, ich helfe Ihnen gerne! Welche Art von Informationen suchen Sie?"},
+    {"role": "user", "content": "Können Sie mir die verschiedenen Pakete und Preise zeigen?"},
+    {"role": "bot", "content": "Sicherlich! Hier sind unsere aktuellen Pakete und Preise:"},
+    {"role": "bot", "content": "- Paket A: $50 pro Monat"},
+    {"role": "bot", "content": "- Paket B: $75 pro Monat"},
+    {"role": "bot", "content": "- Paket C: $100 pro Monat"},
+    {"role": "user", "content": "Vielen Dank! Wie kann ich eines dieser Pakete bestellen?"},
+    {"role": "bot", "content": "Sie können Ihr gewünschtes Paket online über unsere Website bestellen oder unseren Kundenservice anrufen. Möchten Sie mit einem Kundenservice-Mitarbeiter sprechen?"},
+    {"role": "user", "content": "Ja, bitte verbinden Sie mich mit einem Mitarbeiter."},
+    {"role": "bot", "content": "Verstanden! Ich werde Sie mit einem Mitarbeiter verbinden. Einen Moment bitte."},
+    {"role": "system", "content": "transferring", "metadata": {"agent": "Kundenservice"}}
+  ]
+}
