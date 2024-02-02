@@ -58,4 +58,41 @@
                 });
         } else {
             console.warn('Kein JSON-Parameter gefunden.');
-    
+        }
+
+        // Funktion zum Konvertieren von JSON zu HTML-Tabelle
+        function convertJSONToHTMLTable(json) {
+            var tableHTML = "<table>";
+
+            // Kopfzeile der Tabelle
+            tableHTML += "<tr>";
+            for (var key in json.conversation[0]) {
+                tableHTML += "<th>" + key + "</th>";
+            }
+            tableHTML += "</tr>";
+
+            // Datenzeilen der Tabelle
+            for (var i = 0; i < json.conversation.length; i++) {
+                tableHTML += "<tr>";
+                for (var key in json.conversation[i]) {
+                    if (typeof json.conversation[i][key] === 'object' && json.conversation[i][key] !== null) {
+                        // Wenn es sich um ein Objekt handelt, das nicht null ist (wie "metadata")
+                        // Inhalt des Objekts formatiert anzeigen
+                        tableHTML += "<td>" + JSON.stringify(json.conversation[i][key], null, 2) + "</td>";
+                    } else {
+                        // Ansonsten normalen Inhalt anzeigen
+                        tableHTML += "<td>" + json.conversation[i][key].toString() + "</td>";
+                    }
+                }
+                tableHTML += "</tr>";
+            }
+
+            tableHTML += "</table>";
+
+            // Tabelle in das result-Div einfügen
+            document.getElementById('result').innerHTML = tableHTML;
+        }
+    </script>
+
+</body>
+</html>
