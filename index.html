@@ -43,19 +43,18 @@
         }
 
         // JSON-Parameter aus der URL abrufen
-        var jsonParam = getParameterByName('jsonFile');
+        var jsonParam = getParameterByName('json');
 
         // Überprüfen, ob ein JSON-Parameter vorhanden ist
         if (jsonParam) {
-            fetch(jsonParam)
-                .then(response => response.json())
-                .then(jsonData => {
-                    // JSON in HTML-Tabelle umwandeln und anzeigen
-                    convertJSONToHTMLTable(jsonData);
-                })
-                .catch(error => {
-                    console.error('Fehler beim Laden des JSON-Parameters:', error);
-                });
+            try {
+                // JSON-Parameter in ein JavaScript-Objekt parsen
+                var jsonData = JSON.parse(decodeURIComponent(jsonParam));
+                // JSON in HTML-Tabelle umwandeln und anzeigen
+                convertJSONToHTMLTable(jsonData);
+            } catch (error) {
+                console.error('Fehler beim Parsen des JSON-Parameters:', error);
+            }
         } else {
             console.warn('Kein JSON-Parameter gefunden.');
         }
@@ -63,7 +62,7 @@
         // Funktion zum Konvertieren von JSON zu HTML-Tabelle
         function convertJSONToHTMLTable(json) {
             var tableHTML = "<table>";
-
+            
             // Kopfzeile der Tabelle
             tableHTML += "<tr>";
             for (var key in json.conversation[0]) {
@@ -75,14 +74,7 @@
             for (var i = 0; i < json.conversation.length; i++) {
                 tableHTML += "<tr>";
                 for (var key in json.conversation[i]) {
-                    if (typeof json.conversation[i][key] === 'object' && json.conversation[i][key] !== null) {
-                        // Wenn es sich um ein Objekt handelt, das nicht null ist (wie "metadata")
-                        // Inhalt des Objekts formatiert anzeigen
-                        tableHTML += "<td>" + JSON.stringify(json.conversation[i][key], null, 2) + "</td>";
-                    } else {
-                        // Ansonsten normalen Inhalt anzeigen
-                        tableHTML += "<td>" + json.conversation[i][key].toString() + "</td>";
-                    }
+                    tableHTML += "<td>" + json.conversation[i][key] + "</td>";
                 }
                 tableHTML += "</tr>";
             }
