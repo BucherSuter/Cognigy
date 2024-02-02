@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transcript v2</title>
+    <title>JSON to HTML Table</title>
     <style>
         table {
             width: 100%;
@@ -63,6 +63,12 @@
         function convertJSONToHTMLTable(json) {
             var tableHTML = "<table>";
             
+            // Kopfzeile der Tabelle
+            tableHTML += "<tr>";
+            tableHTML += "<th>Role</th>";
+            tableHTML += "<th>Content</th>";
+            tableHTML += "</tr>";
+
             // Datenzeilen der Tabelle
             for (var i = 0; i < json.conversation.length; i++) {
                 tableHTML += "<tr>";
