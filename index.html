@@ -47,45 +47,15 @@
 
         // Überprüfen, ob ein JSON-Parameter vorhanden ist
         if (jsonParam) {
-            try {
-                // JSON-Parameter in ein JavaScript-Objekt parsen
-                fetch(jsonParam)
-                    .then(response => response.json())
-                    .then(jsonData => convertJSONToHTMLTable(jsonData))
-                    .catch(error => console.error('Fehler beim Laden der JSON-Datei:', error));
-            } catch (error) {
-                console.error('Fehler beim Parsen des JSON-Parameters:', error);
-            }
+            fetch(jsonParam)
+                .then(response => response.json())
+                .then(jsonData => {
+                    // JSON in HTML-Tabelle umwandeln und anzeigen
+                    convertJSONToHTMLTable(jsonData);
+                })
+                .catch(error => {
+                    console.error('Fehler beim Laden des JSON-Parameters:', error);
+                });
         } else {
             console.warn('Kein JSON-Parameter gefunden.');
-        }
-
-        // Funktion zum Konvertieren von JSON zu HTML-Tabelle
-        function convertJSONToHTMLTable(json) {
-            var tableHTML = "<table>";
-
-            // Kopfzeile der Tabelle
-            tableHTML += "<tr>";
-            for (var key in json.conversation[0]) {
-                tableHTML += "<th>" + key + "</th>";
-            }
-            tableHTML += "</tr>";
-
-            // Datenzeilen der Tabelle
-            for (var i = 0; i < json.conversation.length; i++) {
-                tableHTML += "<tr>";
-                for (var key in json.conversation[i]) {
-                    tableHTML += "<td>" + json.conversation[i][key].toString() + "</td>";
-                }
-                tableHTML += "</tr>";
-            }
-
-            tableHTML += "</table>";
-
-            // Tabelle in das result-Div einfügen
-            document.getElementById('result').innerHTML = tableHTML;
-        }
-    </script>
-
-</body>
-</html>
+    
