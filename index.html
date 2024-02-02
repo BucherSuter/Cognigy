@@ -50,8 +50,6 @@
             try {
                 // JSON-Parameter in ein JavaScript-Objekt parsen
                 var jsonData = JSON.parse(decodeURIComponent(jsonParam));
-                // Hinzugefügt: Ausgabe der JSON-Daten in der Konsole
-                console.log('JSON-Daten:', jsonData);
                 // JSON in HTML-Tabelle umwandeln und anzeigen
                 convertJSONToHTMLTable(jsonData);
             } catch (error) {
@@ -65,19 +63,11 @@
         function convertJSONToHTMLTable(json) {
             var tableHTML = "<table>";
             
-            // Kopfzeile der Tabelle
-            tableHTML += "<tr>";
-            for (var key in json.conversation[0]) {
-                tableHTML += "<th>" + key + "</th>";
-            }
-            tableHTML += "</tr>";
-
             // Datenzeilen der Tabelle
             for (var i = 0; i < json.conversation.length; i++) {
                 tableHTML += "<tr>";
-                for (var key in json.conversation[i]) {
-                    tableHTML += "<td>" + json.conversation[i][key] + "</td>";
-                }
+                tableHTML += "<td>" + json.conversation[i].role + "</td>";
+                tableHTML += "<td>" + json.conversation[i].content + "</td>";
                 tableHTML += "</tr>";
             }
 
