@@ -42,27 +42,20 @@
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
 
-        // JSON-Datei-Parameter aus der URL abrufen
+        // JSON-Parameter aus der URL abrufen
         var jsonFileParam = getParameterByName('jsonFile');
 
-        // Überprüfen, ob ein JSON-Datei-Parameter vorhanden ist
+        // Überprüfen, ob ein JSON-Parameter vorhanden ist
         if (jsonFileParam) {
-            try {
-                // JSON-Datei einlesen und in ein JavaScript-Objekt parsen
-                fetch(jsonFileParam)
-                    .then(response => response.json())
-                    .then(jsonData => {
-                        // JSON in HTML-Tabelle umwandeln und anzeigen
-                        convertJSONToHTMLTable(jsonData);
-                    })
-                    .catch(error => {
-                        console.error('Fehler beim Laden der JSON-Datei:', error);
-                    });
-            } catch (error) {
-                console.error('Fehler beim Parsen der JSON-Datei:', error);
-            }
+            fetch(jsonFileParam)
+                .then(response => response.json())
+                .then(jsonData => {
+                    console.log('JSON-Daten:', jsonData);
+                    convertJSONToHTMLTable(jsonData);
+                })
+                .catch(error => console.error('Fehler beim Laden der JSON-Datei:', error));
         } else {
-            console.warn('Kein JSON-Datei-Parameter gefunden.');
+            console.warn('Kein JSON-Parameter gefunden.');
         }
 
         // Funktion zum Konvertieren von JSON zu HTML-Tabelle
@@ -71,16 +64,16 @@
             
             // Kopfzeile der Tabelle
             tableHTML += "<tr>";
-            for (var key in json[0]) {
+            for (var key in json.conversation[0]) {
                 tableHTML += "<th>" + key + "</th>";
             }
             tableHTML += "</tr>";
 
             // Datenzeilen der Tabelle
-            for (var i = 0; i < json.length; i++) {
+            for (var i = 0; i < json.conversation.length; i++) {
                 tableHTML += "<tr>";
-                for (var key in json[i]) {
-                    tableHTML += "<td>" + json[i][key] + "</td>";
+                for (var key in json.conversation[i]) {
+                    tableHTML += "<td>" + json.conversation[i][key] + "</td>";
                 }
                 tableHTML += "</tr>";
             }
