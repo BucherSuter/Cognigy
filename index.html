@@ -43,17 +43,19 @@
         }
 
         // JSON-Parameter aus der URL abrufen
-        var jsonFileParam = getParameterByName('jsonFile');
+        var jsonParam = getParameterByName('jsonFile');
 
         // Überprüfen, ob ein JSON-Parameter vorhanden ist
-        if (jsonFileParam) {
-            fetch(jsonFileParam)
-                .then(response => response.json())
-                .then(jsonData => {
-                    console.log('JSON-Daten:', jsonData);
-                    convertJSONToHTMLTable(jsonData);
-                })
-                .catch(error => console.error('Fehler beim Laden der JSON-Datei:', error));
+        if (jsonParam) {
+            try {
+                // JSON-Parameter in ein JavaScript-Objekt parsen
+                fetch(jsonParam)
+                    .then(response => response.json())
+                    .then(jsonData => convertJSONToHTMLTable(jsonData))
+                    .catch(error => console.error('Fehler beim Laden der JSON-Datei:', error));
+            } catch (error) {
+                console.error('Fehler beim Parsen des JSON-Parameters:', error);
+            }
         } else {
             console.warn('Kein JSON-Parameter gefunden.');
         }
@@ -61,7 +63,7 @@
         // Funktion zum Konvertieren von JSON zu HTML-Tabelle
         function convertJSONToHTMLTable(json) {
             var tableHTML = "<table>";
-            
+
             // Kopfzeile der Tabelle
             tableHTML += "<tr>";
             for (var key in json.conversation[0]) {
@@ -73,7 +75,7 @@
             for (var i = 0; i < json.conversation.length; i++) {
                 tableHTML += "<tr>";
                 for (var key in json.conversation[i]) {
-                    tableHTML += "<td>" + json.conversation[i][key] + "</td>";
+                    tableHTML += "<td>" + json.conversation[i][key].toString() + "</td>";
                 }
                 tableHTML += "</tr>";
             }
