@@ -70,11 +70,15 @@
             tableHTML += "</tr>";
 
             // Datenzeilen der Tabelle
-            for (var i = 0; i < json.length; i++) {
-                tableHTML += "<tr>";
-                tableHTML += "<td>" + json[i].person + "</td>";
-                tableHTML += "<td>" + json[i].text + "</td>";
-                tableHTML += "</tr>";
+            if (Array.isArray(json) && json.length > 0) {
+                for (var i = 0; i < json.length; i++) {
+                    tableHTML += "<tr>";
+                    tableHTML += "<td>" + json[i].person + "</td>";
+                    tableHTML += "<td>" + json[i].text + "</td>";
+                    tableHTML += "</tr>";
+                }
+            } else {
+                console.warn('Das JSON-Array ist leer oder ungültig.');
             }
 
             tableHTML += "</table>";
