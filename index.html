@@ -35,7 +35,7 @@
         var jsonParam = new URLSearchParams(window.location.search).get('json');
 
         // Überprüfen, ob ein JSON-Parameter vorhanden ist und gültig ist
-        if (jsonParam && jsonParam.trim() !== "") {
+        if (jsonParam) {
             try {
                 // JSON-Parameter in ein JavaScript-Objekt parsen
                 var jsonData = JSON.parse(jsonParam);
@@ -45,7 +45,7 @@
                 console.error('Fehler beim Parsen des JSON-Parameters:', error);
             }
         } else {
-            console.warn('Kein JSON-Parameter gefunden oder JSON-Parameter ist leer.');
+            console.warn('Kein JSON-Parameter gefunden.');
         }
 
         // Funktion zum Konvertieren von JSON zu HTML-Tabelle
