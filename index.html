@@ -39,17 +39,17 @@
                 results = regex.exec(url);
             if (!results) return null;
             if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
+            return results[2].replace(/\+/g, " ");
         }
 
         // JSON-Parameter aus der URL abrufen
         var jsonParam = getParameterByName('json');
 
         // Überprüfen, ob ein JSON-Parameter vorhanden ist
-        if (jsonParam !== null) {
+        if (jsonParam) {
             try {
                 // JSON-Parameter in ein JavaScript-Objekt parsen
-                var jsonData = JSON.parse(jsonParam);
+                var jsonData = JSON.parse(decodeURIComponent(jsonParam));
                 // JSON in HTML-Tabelle umwandeln und anzeigen
                 convertJSONToHTMLTable(jsonData);
             } catch (error) {
