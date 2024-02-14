@@ -39,7 +39,7 @@
                 results = regex.exec(url);
             if (!results) return null;
             if (!results[2]) return '';
-            return results[2].replace(/\+/g, " ");
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
 
         // JSON-Parameter aus der URL abrufen
