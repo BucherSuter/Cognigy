@@ -65,15 +65,15 @@
             
             // Kopfzeile der Tabelle
             tableHTML += "<tr>";
-            tableHTML += "<th>Role</th>";
-            tableHTML += "<th>Content</th>";
+            tableHTML += "<th>Person</th>";
+            tableHTML += "<th>Text</th>";
             tableHTML += "</tr>";
 
             // Datenzeilen der Tabelle
-            for (var i = 0; i < json.conversation.length; i++) {
+            for (var i = 0; i < json.length; i++) {
                 tableHTML += "<tr>";
-                tableHTML += "<td>" + json.conversation[i].role + "</td>";
-                tableHTML += "<td>" + json.conversation[i].content + "</td>";
+                tableHTML += "<td>" + json[i].person + "</td>";
+                tableHTML += "<td>" + json[i].text + "</td>";
                 tableHTML += "</tr>";
             }
 
