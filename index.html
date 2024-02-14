@@ -31,13 +31,35 @@
     <div id="result"></div>
 
     <script>
-        var jsonData = [
-            {"person": "Bot", "text": "Wie kann ich Ihnen helfen?"},
-            {"person": "User", "text": "Ja, ich hätte gerne mal gewusst. Also ich habe einen Unfall gebaut und ich weiß nicht, ob das noch abgesichert ist oder ob ich einen Schaden einen Schaden frei habe, weil ich bin schon lange versichert, an der Stelle hätte ich gerne mal ein paar Infos zu."}
-        ];
+        // Funktion zum Extrahieren von Parametern aus der URL
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return results[2].replace(/\+/g, " ");
+        }
 
-        convertJSONToHTMLTable(jsonData);
+        // JSON-Parameter aus der URL abrufen
+        var jsonParam = getParameterByName('json');
 
+        // Überprüfen, ob ein JSON-Parameter vorhanden ist
+        if (jsonParam) {
+            try {
+                // JSON-Parameter in ein JavaScript-Objekt parsen
+                var jsonData = JSON.parse(decodeURIComponent(jsonParam));
+                // JSON in HTML-Tabelle umwandeln und anzeigen
+                convertJSONToHTMLTable(jsonData);
+            } catch (error) {
+                console.error('Fehler beim Parsen des JSON-Parameters:', error);
+            }
+        } else {
+            console.warn('Kein JSON-Parameter gefunden.');
+        }
+
+        // Funktion zum Konvertieren von JSON zu HTML-Tabelle
         function convertJSONToHTMLTable(json) {
             var tableHTML = "<table>";
             
