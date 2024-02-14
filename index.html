@@ -31,22 +31,11 @@
     <div id="result"></div>
 
     <script>
-        // Funktion zum Extrahieren von Parametern aus der URL
-        function getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, "\\$&");
-            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
-        }
-
-        // JSON-Parameter aus der URL abrufen
-        var jsonParam = getParameterByName('json');
+        // Extrahieren des JSON-Parameters aus der URL
+        var jsonParam = decodeURIComponent(new URLSearchParams(window.location.search).get('json'));
 
         // Überprüfen, ob ein JSON-Parameter vorhanden ist
-        if (jsonParam !== null && jsonParam !== '') {
+        if (jsonParam) {
             try {
                 // JSON-Parameter in ein JavaScript-Objekt parsen
                 var jsonData = JSON.parse(jsonParam);
@@ -70,15 +59,11 @@
             tableHTML += "</tr>";
 
             // Datenzeilen der Tabelle
-            if (Array.isArray(json) && json.length > 0) {
-                for (var i = 0; i < json.length; i++) {
-                    tableHTML += "<tr>";
-                    tableHTML += "<td>" + json[i].person + "</td>";
-                    tableHTML += "<td>" + json[i].text + "</td>";
-                    tableHTML += "</tr>";
-                }
-            } else {
-                console.warn('Das JSON-Array ist leer oder ungültig.');
+            for (var i = 0; i < json.length; i++) {
+                tableHTML += "<tr>";
+                tableHTML += "<td>" + json[i].person + "</td>";
+                tableHTML += "<td>" + json[i].text + "</td>";
+                tableHTML += "</tr>";
             }
 
             tableHTML += "</table>";
