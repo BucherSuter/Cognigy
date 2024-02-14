@@ -32,10 +32,10 @@
 
     <script>
         // Extrahieren des JSON-Parameters aus der URL
-        var jsonParam = decodeURIComponent(new URLSearchParams(window.location.search).get('json'));
+        var jsonParam = new URLSearchParams(window.location.search).get('json');
 
-        // Überprüfen, ob ein JSON-Parameter vorhanden ist
-        if (jsonParam) {
+        // Überprüfen, ob ein JSON-Parameter vorhanden ist und gültig ist
+        if (jsonParam && jsonParam.trim() !== "") {
             try {
                 // JSON-Parameter in ein JavaScript-Objekt parsen
                 var jsonData = JSON.parse(jsonParam);
@@ -45,7 +45,7 @@
                 console.error('Fehler beim Parsen des JSON-Parameters:', error);
             }
         } else {
-            console.warn('Kein JSON-Parameter gefunden.');
+            console.warn('Kein JSON-Parameter gefunden oder JSON-Parameter ist leer.');
         }
 
         // Funktion zum Konvertieren von JSON zu HTML-Tabelle
